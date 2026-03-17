@@ -1,0 +1,51 @@
+---
+// 1. Tady importujeme tvůj globální Tailwind CSS
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+
+// 2. Tady definujeme, že layout může přijmout "title" z jiné stránky
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { 
+	title = "Night Wolf Studio | Digital Engineering & Identity",
+	description = "Premium web systems and digital identity driven by instinct and technical precision. Rule your turf with Night Wolf Studio." 
+	} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title} | Digital Dominance</title>
+
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://www.nightwolf.cz/" /> <meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content="/elen-og.jpg" /> <meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content="/elen-og.jpg" />
+
+		<meta name="theme-color" content="#050d1a" />
+	</head>
+	<body class="bg-[#050d1a] selection:bg-[#D4AF37] selection:text-[#050d1a] text-white antialiased">
+			<Navbar /> <slot />
+	</body>
+</html>
+
+<style is:global>
+	/* is:global zajistí, že tyhle základní věci platí pro celý web */
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+</style>

@@ -1,0 +1,95 @@
+---
+// src/components/Portfolio.astro
+---
+
+<section id="portfolio" class="py-24 px-4 bg-[#0A192F]">
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="mb-16 text-center">
+      <h2 class="text-white text-5xl md:text-6xl font-serif italic tracking-tight mb-4">
+        The Birth of Elen
+      </h2>
+      <div class="w-24 h-1 bg-[#D4AF37] mx-auto"></div>
+    </div>
+
+    <div class="flex justify-center">
+      <div 
+        id="open-modal"
+        class="group relative w-full max-w-2xl aspect-video overflow-hidden bg-black cursor-pointer border border-white/5"
+      >
+        <img 
+          src="/elen.png" 
+          alt="Elen Digital Muse" 
+          class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+        />
+        
+        <div class="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-black/80 via-transparent to-transparent">
+          <span class="text-[#D4AF37] text-[10px] tracking-[0.4em] font-bold uppercase mb-2">
+            Digital Muse
+          </span>
+          <p class="text-white/60 text-sm font-light tracking-wide group-hover:text-white transition-colors">
+            Click to explore the creation process
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div 
+    id="modal-overlay" 
+    class="fixed inset-0 z-[1000] bg-black/95 backdrop-blur-md hidden flex-col items-center justify-center p-4 overflow-y-auto"
+  >
+    <button 
+      id="close-modal"
+      class="fixed top-8 right-8 text-white bg-white/10 px-6 py-2 text-[10px] tracking-[0.2em] font-bold hover:bg-[#D4AF37] hover:text-[#0A192F] transition-all uppercase"
+    >
+      Close [X]
+    </button>
+
+    <div class="max-w-4xl w-full text-center space-y-8 py-12">
+      <div class="relative w-full aspect-video md:aspect-[16/9] bg-[#081426] border border-white/10 shadow-2xl">
+        <img 
+          src="/na-posteli.png" 
+          alt="Process" 
+          class="w-full h-full object-contain"
+        />
+      </div>
+      
+      <div class="space-y-4">
+        <h3 class="text-white text-4xl font-serif italic">Behind the Scenes</h3>
+        <p class="text-slate-400 text-lg leading-relaxed max-w-2xl mx-auto">
+          Elen was not found. She was engineered as the perfect digital identity, 
+          merging natural grace with hyper-realistic precision. A true evolution 
+          of digital craftsmanship.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const openBtn = document.getElementById('open-modal');
+  const closeBtn = document.getElementById('close-modal');
+  const modal = document.getElementById('modal-overlay');
+
+  const toggleModal = (show: boolean) => {
+    if (modal) {
+      modal.classList.toggle('hidden', !show);
+      modal.classList.toggle('flex', show);
+      document.body.style.overflow = show ? 'hidden' : 'unset';
+    }
+  };
+
+  openBtn?.addEventListener('click', () => toggleModal(true));
+  closeBtn?.addEventListener('click', () => toggleModal(false));
+  
+  // Zavřít kliknutím mimo obsah (na overlay)
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) toggleModal(false);
+  });
+
+  // Zavřít klávesou Esc
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') toggleModal(false);
+  });
+</script>

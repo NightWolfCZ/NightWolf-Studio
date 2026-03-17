@@ -1,0 +1,91 @@
+---
+// src/components/Contact.astro
+---
+
+<footer id="contact" class="py-24 px-4 bg-[#050D1A] border-t border-white/5">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
+      
+      <div class="flex flex-col items-start space-y-8 reveal">
+        <div class="px-3 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] font-mono text-[10px] tracking-widest uppercase">
+          PROTOCOL_ALPHA_01
+        </div>
+        
+        <h2 class="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter italic leading-none">
+          Own your <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#8A6D1D]">Territory.</span>
+        </h2>
+        
+        <p class="text-slate-400 text-lg leading-relaxed max-w-md">
+          We don't look for clients. We look for partners for digital dominance. 
+          Leave your mark, and we will reach out when we are ready for the hunt.
+        </p>
+        
+        <div class="space-y-4 pt-4">
+          <div class="flex flex-col">
+            <span class="text-[#D4AF37] font-mono text-[9px] uppercase tracking-[0.3em] mb-1">Direct_Com:</span>
+            <span class="text-white font-bold tracking-wide">nightwolf.webstudio@gmail.com</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-[#D4AF37] font-mono text-[9px] uppercase tracking-[0.3em] mb-1">Location:</span>
+            <span class="text-white font-bold tracking-wide">Europe / Remote / Global</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative group">
+        <div class="bg-[#0A192F] border border-white/10 rounded-t-lg p-4 flex items-center justify-between">
+          <div class="flex gap-2">
+            <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></div>
+          </div>
+          <div class="text-slate-500 font-mono text-[10px] uppercase tracking-widest">WOLF_MESSAGE_STATION</div>
+        </div>
+        
+        <form action="https://formspree.io/f/xlgwzdrj" method="POST" class="bg-[#020812] border-x border-b border-white/10 p-8 space-y-6 shadow-2xl">
+          <div class="space-y-2">
+            <label class="block text-[#D4AF37] font-mono text-[10px] uppercase tracking-widest">IDENT_NAME</label>
+            <input type="text" name="name" placeholder="Your alias..." required 
+              class="w-full bg-transparent border-b border-white/10 py-2 text-white placeholder:text-slate-700 focus:border-[#D4AF37] outline-none transition-colors" />
+          </div>
+          
+          <div class="space-y-2">
+            <label class="block text-[#D4AF37] font-mono text-[10px] uppercase tracking-widest">IDENT_EMAIL</label>
+            <input type="email" name="email" placeholder="where@to.respond..." required 
+              class="w-full bg-transparent border-b border-white/10 py-2 text-white placeholder:text-slate-700 focus:border-[#D4AF37] outline-none transition-colors" />
+          </div>
+
+          <div class="space-y-2 relative">
+            <label class="block text-[#D4AF37] font-mono text-[10px] uppercase tracking-widest">SELECT_LEVEL</label>
+            <select name="package" required
+              class="w-full bg-transparent border-b border-white/10 py-2 text-[#D4AF37] appearance-none outline-none focus:border-[#D4AF37] cursor-pointer">
+              <option value="" disabled selected class="bg-[#020812]">-- CHOOSE DEPTH --</option>
+              <option value="lone-wolf" class="bg-[#020812]">THE SCOUT (STARTUP)</option>
+              <option value="pack-leader" class="bg-[#020812]">THE HUNTER (BUSINESS)</option>
+              <option value="alpha-predator" class="bg-[#020812]">THE ALPHA (SIGNATURE)</option>
+            </select>
+          </div>
+          
+          <div class="space-y-2">
+            <label class="block text-[#D4AF37] font-mono text-[10px] uppercase tracking-widest">MISSION_OBJECTIVE</label>
+            <textarea name="message" rows="4" placeholder="Describe your target / project..." 
+              class="w-full bg-transparent border border-white/10 p-3 text-white placeholder:text-slate-700 focus:border-[#D4AF37] outline-none transition-colors resize-none"></textarea>
+          </div>
+
+          <button type="submit" 
+            class="w-full py-4 bg-transparent border border-[#D4AF37] text-[#D4AF37] font-black uppercase text-[10px] tracking-[0.3em] hover:bg-[#D4AF37] hover:text-[#020812] transition-all duration-500">
+            [ INITIATE_CONTACT ]
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] font-black uppercase tracking-[0.3em]">
+      <div class="flex gap-8">
+        <a href="https://www.instagram.com/nightwolf.webstudio/" class="text-slate-500 hover:text-white transition-colors">Instagram</a>
+        <a href="#" class="text-slate-500 hover:text-white transition-colors">LinkedIn</a>
+      </div>
+      <p class="text-slate-600">© 2026 NIGHT WOLF STUDIO. ALL RIGHTS RESERVED.</p>
+    </div>
+  </div>
+</footer>

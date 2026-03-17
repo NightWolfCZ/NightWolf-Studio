@@ -1,0 +1,30 @@
+---
+// src/components/Navbar.astro
+---
+
+<header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-6 px-4 md:px-12">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="/" class="flex items-center gap-3 group decoration-none">
+      <img src="/logo.png" alt="Wolf Logo" width="40" height="40" class="group-hover:scale-110 transition-transform duration-300" />
+      <span class="text-white font-black tracking-tighter text-xl group-hover:text-[#D4AF37] transition-colors">NIGHT WOLF</span>
+    </a>
+    
+    <nav class="hidden md:flex items-center gap-10">
+      <a href="#about" class="text-[10px] font-bold tracking-[0.3em] text-slate-400 hover:text-[#D4AF37] transition-colors uppercase">ABOUT</a>
+      <a href="#portfolio" class="text-[10px] font-bold tracking-[0.3em] text-slate-400 hover:text-[#D4AF37] transition-colors uppercase">PORTFOLIO</a>
+      <a href="#pricing" class="text-[10px] font-bold tracking-[0.3em] text-slate-400 hover:text-[#D4AF37] transition-colors uppercase">PRICING</a>
+      <a href="#contact" class="px-6 py-2 border border-[#D4AF37]/30 text-[#D4AF37] text-[10px] font-bold tracking-[0.2em] hover:bg-[#D4AF37] hover:text-[#0A192F] transition-all uppercase">GET IN TOUCH</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      nav?.classList.add('bg-[#0A192F]/80', 'backdrop-blur-md', 'py-4', 'border-b', 'border-white/5', 'shadow-2xl');
+    } else {
+      nav?.classList.remove('bg-[#0A192F]/80', 'backdrop-blur-md', 'py-4', 'border-b', 'border-white/5', 'shadow-2xl');
+    }
+  });
+</script>

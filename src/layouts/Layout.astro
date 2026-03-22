@@ -1,51 +1,115 @@
 ---
-// 1. Tady importujeme tvůj globální Tailwind CSS
+// src/layouts/Layout.astro
 import '../styles/global.css';
-import Navbar from '../components/Navbar.astro';
 
-// 2. Tady definujeme, že layout může přijmout "title" z jiné stránky
 interface Props {
-	title?: string;
-	description?: string;
+  title: string;
+  description?: string;
 }
 
-const { 
-	title = "Night Wolf Studio | Digital Engineering & Identity",
-	description = "Premium web systems and digital identity driven by instinct and technical precision. Rule your turf with Night Wolf Studio." 
-	} = Astro.props;
+const { title, description = "We design and build high-performance websites for ambitious businesses." } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} · Night Wolf</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Almendra:ital@1&display=swap" rel="stylesheet" />
+</head>
+<body>
 
-<!doctype html>
-<html lang="en" class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title} | Digital Dominance</title>
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://www.nightwolf.cz/" /> <meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content="/elen-og.jpg" /> <meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:title" content={title} />
-		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content="/elen-og.jpg" />
+  <nav>
+    <a href="/" class="logo">Night<span>Wolf</span></a>
+    <ul class="nav-links">
+      <li><a href="/work" class={currentPath.startsWith('/work') ? 'active' : ''}>Work</a></li>
+      <li><a href="/services" class={currentPath.startsWith('/services') ? 'active' : ''}>Services</a></li>
+      <li><a href="/pricing" class={currentPath.startsWith('/pricing') ? 'active' : ''}>Pricing</a></li>
+      <li><a href="/about" class={currentPath.startsWith('/about') ? 'active' : ''}>About</a></li>
+    </ul>
+    <a href="/contact" class="nav-cta">Start a Project</a>
+  </nav>
 
-		<meta name="theme-color" content="#050d1a" />
-	</head>
-	<body class="bg-[#050d1a] selection:bg-[#D4AF37] selection:text-[#050d1a] text-white antialiased">
-			<Navbar /> <slot />
-	</body>
+  <div class="page-wrapper">
+    <slot />
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <a href="/" class="logo footer-logo">Night<span>Wolf</span></a>
+        <p class="footer-tagline">Precise, purposeful web design.</p>
+      </div>
+      <div class="footer-copy">© 2026 Night Wolf Studio</div>
+    </div>
+  </footer>
+
+  <script>
+    // SCROLL REVEAL – všechny tři varianty
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // CUSTOM CURSOR
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+
+    if (dot && ring) {
+      let dotX = 0, dotY = 0;
+      let ringX = 0, ringY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        dotX = e.clientX;
+        dotY = e.clientY;
+        dot.style.left = dotX + 'px';
+        dot.style.top = dotY + 'px';
+      });
+
+      // Ring sleduje s mírným zpožděním
+      function animateRing() {
+  if (!ring) return;
+  ringX += (dotX - ringX) * 0.12;
+  ringY += (dotY - ringY) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+      animateRing();
+
+      // Hover stav na interaktivních prvcích
+      const interactives = document.querySelectorAll('a, button, input, select, textarea, .card');
+      interactives.forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+      });
+
+      // Skrýt cursor když opustí okno
+      document.addEventListener('mouseleave', () => {
+        dot.style.opacity = '0';
+        ring.style.opacity = '0';
+      });
+      document.addEventListener('mouseenter', () => {
+        dot.style.opacity = '1';
+        ring.style.opacity = '1';
+      });
+    }
+  </script>
+
+</body>
 </html>
-
-<style is:global>
-	/* is:global zajistí, že tyhle základní věci platí pro celý web */
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

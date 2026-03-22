@@ -1,19 +1,242 @@
 ---
+// src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Portfolio from '../components/Portfolio.astro';
-import Pricing from '../components/Pricing.astro';
-import Contact from '../components/Contact.astro';
 ---
+<Layout title="Digital Studio">
+  <style>
+    .hero {
+      min-height: calc(100vh - var(--nav-height));
+      padding: 6rem 3rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      position: relative;
+    }
 
-<Layout title="Night Wolf | Global Digital Engineering">
-		<main>
-				<Hero />
-				<About />
-				<Portfolio />
-				<Pricing />
-				<Contact />
-		</main>
+    .hero-bg-accent {
+      position: absolute;
+      top: 20%;
+      right: 5%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 4.5vw, 4.8rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-sub {
+      max-width: 460px;
+      margin-bottom: 3rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-card {
+      padding: 2.5rem;
+    }
+
+    .card-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-number sup {
+      color: var(--gold);
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+
+    .stat-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .services-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .service-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .service-name {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .service-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0.6;
+    }
+
+    .featured {
+      border-top: 1px solid var(--border);
+      padding: 3.5rem 3rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .featured-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--faint);
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .featured-items {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .featured-item {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--faint);
+      letter-spacing: 0.1em;
+      transition: color 0.3s;
+    }
+
+    .featured-item:hover { color: var(--text); }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 4rem 1.5rem;
+        gap: 3rem;
+      }
+      .hero-bg-accent { display: none; }
+      .featured { padding: 3rem 1.5rem; }
+      .featured-items { gap: 2rem; }
+    }
+  </style>
+
+  <section class="hero">
+    <div class="hero-bg-accent"></div>
+
+    <div class="reveal">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>Digital Studio · Est. 2026</span>
+      </div>
+      <h1 class="section-title">
+        Websites that<br>
+        <em>work</em> as hard<br>
+        as you do.
+      </h1>
+      <p class="section-subtitle hero-sub">
+        We design and build high-performance websites for ambitious businesses. No templates, no shortcuts — just precise, purposeful work.
+      </p>
+      <div class="hero-actions">
+        <a href="/work" class="btn-primary">See Our Work</a>
+        <a href="/pricing" class="btn-ghost">
+          View Pricing
+          <span class="btn-ghost-line"></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay: 0.2s;">
+      <div class="hero-card card card-gold-top card-gold-corner">
+        <div class="card-label">Studio Capabilities</div>
+        <div class="stats-grid">
+          <div>
+            <div class="stat-number">48<sup>h</sup></div>
+            <div class="stat-label">First Draft</div>
+          </div>
+          <div>
+            <div class="stat-number">100<sup>%</sup></div>
+            <div class="stat-label">Custom Code</div>
+          </div>
+          <div>
+            <div class="stat-number">3<sup>×</sup></div>
+            <div class="stat-label">Faster Load</div>
+          </div>
+          <div>
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Revisions</div>
+          </div>
+        </div>
+        <div class="divider" style="margin-bottom: 2rem;"></div>
+        <div class="services-list">
+          <div class="service-item">
+            <span class="service-name">Custom Web Design</span>
+            <span class="service-dot"></span>
+          </div>
+          <div class="service-item">
+            <span class="service-name">Brand Identity</span>
+            <span class="service-dot"></span>
+          </div>
+          <div class="service-item">
+            <span class="service-name">SEO & Performance</span>
+            <span class="service-dot"></span>
+          </div>
+          <div class="service-item">
+            <span class="service-name">AI-Powered Branding</span>
+            <span class="service-dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="featured reveal">
+    <p class="featured-label">Featured Work</p>
+    <div class="featured-items">
+      <a href="/work" class="featured-item">Apex Detail</a>
+      <a href="/work" class="featured-item">Azure Estates</a>
+      <a href="/work" class="featured-item">Elen Digital</a>
+    </div>
+  </div>
+
 </Layout>

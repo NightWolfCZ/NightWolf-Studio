@@ -1,0 +1,469 @@
+---
+// src/pages/pricing.astro
+import Layout from '../layouts/Layout.astro';
+
+const tiers = [
+  {
+    name: 'Essential',
+    price: '$1,950',
+    delivery: '7–10 business days',
+    description: 'The perfect starting point for businesses that need a strong online presence fast.',
+    features: [
+      'Modern one-page design',
+      'High-performance load speed',
+      'Core SEO optimization',
+      'Contact form integration',
+      'Vercel deployment included',
+      '2 rounds of revisions',
+    ],
+    featured: false,
+    cta: 'Get Started',
+  },
+  {
+    name: 'Business',
+    price: '$3,800',
+    delivery: '14–21 business days',
+    description: 'For growing businesses that need a full web presence with content management.',
+    features: [
+      'Multi-page architecture',
+      'Advanced visual identity',
+      'Deep SEO configuration',
+      'CMS for easy updates',
+      'Social media integration',
+      'Unlimited revisions',
+    ],
+    featured: true,
+    cta: 'Most Popular',
+  },
+  {
+    name: 'Signature',
+    price: '$7,500',
+    delivery: '4–6 weeks',
+    description: 'A fully bespoke digital experience for brands that refuse to blend in.',
+    features: [
+      'Bespoke AI brand model',
+      'Premium interactive motion',
+      'Full strategy & copywriting',
+      'Maximum security setup',
+      'Priority 24/7 support',
+      'Unlimited revisions',
+    ],
+    featured: false,
+    cta: 'Get Started',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do you work with clients outside Europe?',
+    a: 'Yes — we work fully remote with clients worldwide. All communication happens via email or video call.',
+  },
+  {
+    q: 'What do you need from me to get started?',
+    a: 'A brief about your business, any existing branding materials, and your goals. We handle the rest.',
+  },
+  {
+    q: 'How does payment work?',
+    a: '50% upfront to begin, 50% on delivery. We accept bank transfer and major payment platforms.',
+  },
+  {
+    q: 'Can I upgrade my plan later?',
+    a: 'Absolutely. Many clients start with Essential and upgrade as their business grows.',
+  },
+];
+---
+<Layout title="Pricing" description="Transparent pricing for high-performance websites. No hidden fees.">
+  <style>
+    .pricing-hero {
+      padding: 5rem 3rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 6vw, 6rem);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-hero p {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      font-weight: 300;
+    }
+
+    .tiers {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 5rem 3rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .tier {
+      padding: 2.5rem;
+      position: relative;
+      transition: border-color 0.3s;
+    }
+
+    .tier:hover {
+      border-color: var(--border-2);
+    }
+
+    .tier.featured {
+      border-color: var(--gold) !important;
+    }
+
+    .tier-badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--bg);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 0.35rem 1rem;
+      white-space: nowrap;
+    }
+
+    .tier-name {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .tier-price {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .tier-delivery {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .tier-description {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tier-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .tier-features li {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .tier-features li::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    .tier-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-family: var(--sans);
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1px solid var(--border-2);
+      color: var(--muted);
+      background: transparent;
+    }
+
+    .tier-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .tier.featured .tier-btn {
+      background: var(--gold);
+      color: var(--bg);
+      border-color: var(--gold);
+    }
+
+    .tier.featured .tier-btn:hover {
+      background: var(--text);
+      border-color: var(--text);
+    }
+
+    /* FAQ */
+    .faq {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 3rem 6rem;
+    }
+
+    .faq-header {
+      margin-bottom: 3rem;
+    }
+
+    .faq-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 400;
+      margin-top: 1rem;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .faq-item {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-q {
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.01em;
+    }
+
+    .faq-a {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* GUARANTEE */
+    .guarantee {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 3rem 6rem;
+    }
+
+    .guarantee-inner {
+      background: var(--surface);
+      border: 1px solid var(--border-2);
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+    }
+
+    .guarantee-inner::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 3rem;
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    .guarantee h3 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .guarantee p {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .guarantee-points {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .guarantee-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .guarantee-icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--gold);
+      font-size: 0.7rem;
+      margin-top: 0.1rem;
+    }
+
+    .guarantee-point-text {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .guarantee-point-text strong {
+      color: var(--text);
+      font-weight: 500;
+      display: block;
+      margin-bottom: 0.2rem;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 900px) {
+      .pricing-hero { padding: 3rem 1.5rem 2.5rem; }
+
+      .tiers {
+        grid-template-columns: 1fr;
+        padding: 3rem 1.5rem;
+        gap: 2rem;
+      }
+
+      .faq { padding: 0 1.5rem 4rem; }
+
+      .guarantee { padding: 0 1.5rem 4rem; }
+
+      .guarantee-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+  </style>
+
+  <div class="pricing-hero reveal">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span>Investment Plans</span>
+    </div>
+    <h1 class="section-title">Simple, <em>honest</em> pricing.</h1>
+    <p class="section-subtitle">
+      No hourly billing, no surprise invoices. You know the price before we start.
+    </p>
+  </div>
+
+  <div class="tiers">
+    {tiers.map((tier, i) => (
+      <div class={`tier card reveal ${tier.featured ? 'featured card-gold-top' : ''}`} style={`transition-delay: ${i * 0.1}s`}>
+        {tier.featured && <div class="tier-badge">Most Popular</div>}
+        <div class="tier-name">{tier.name}</div>
+        <div class="tier-price">{tier.price}</div>
+        <div class="tier-delivery">⚡ {tier.delivery}</div>
+        <p class="tier-description">{tier.description}</p>
+        <ul class="tier-features">
+          {tier.features.map(f => <li>{f}</li>)}
+        </ul>
+        <a
+          href={`mailto:nightwolf.webstudio@gmail.com?subject=Project Inquiry: ${tier.name}&body=Hello, I am interested in the ${tier.name} package.`}
+          class="tier-btn"
+        >
+          {tier.featured ? tier.cta : tier.cta}
+        </a>
+      </div>
+    ))}
+  </div>
+
+  <div class="guarantee reveal">
+    <div class="guarantee-inner">
+      <div>
+        <div class="eyebrow">
+          <div class="eyebrow-line"></div>
+          <span>Our Promise</span>
+        </div>
+        <h3 class="section-title">Quality you can <em>count on.</em></h3>
+        <p class="section-subtitle" style="margin-top: 1rem;">
+          Every project comes with our commitment to craft, communication, and results.
+        </p>
+      </div>
+      <div class="guarantee-points">
+        <div class="guarantee-point">
+          <div class="guarantee-icon">✓</div>
+          <div class="guarantee-point-text">
+            <strong>On-time delivery</strong>
+            We hit deadlines. If we're late, you get a discount.
+          </div>
+        </div>
+        <div class="guarantee-point">
+          <div class="guarantee-icon">✓</div>
+          <div class="guarantee-point-text">
+            <strong>Full ownership</strong>
+            You own 100% of the code and design. No lock-in.
+          </div>
+        </div>
+        <div class="guarantee-point">
+          <div class="guarantee-icon">✓</div>
+          <div class="guarantee-point-text">
+            <strong>Transparent process</strong>
+            You see progress at every stage. No surprises.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq reveal">
+    <div class="faq-header">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>FAQ</span>
+      </div>
+      <h2>Common <em>questions.</em></h2>
+    </div>
+    <div class="faq-list">
+      {faqs.map(item => (
+        <div class="faq-item">
+          <p class="faq-q">{item.q}</p>
+          <p class="faq-a">{item.a}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+</Layout>

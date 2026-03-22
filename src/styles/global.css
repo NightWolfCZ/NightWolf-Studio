@@ -1,1 +1,704 @@
-@import "tailwindcss";
+/* ================================
+   NIGHT WOLF · GLOBAL STYLES
+   ================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* RESET */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* VARIABLES */
+:root {
+  --bg:          #0C0C0E;
+  --surface:     #141416;
+  --border:      #1E1E20;
+  --border-2:    #2A2A2D;
+  --gold:        #C9A96E;
+  --gold-dim:    rgba(201, 169, 110, 0.12);
+  --gold-glow:   rgba(201, 169, 110, 0.05);
+  --text:        #F0EDE8;
+  --muted:       #888880;
+  --faint:       #444440;
+  --serif:       'Playfair Display', Georgia, serif;
+  --sans:        'DM Sans', system-ui, sans-serif;
+  --max-width:   1400px;
+  --nav-height:  80px;
+
+  /* MOON GLOW */
+  --moon:        #C8D8F0;
+  --moon-dim:    rgba(200, 216, 240, 0.08);
+  --moon-glow:   rgba(200, 216, 240, 0.15);
+  --moon-bright: rgba(200, 216, 240, 0.25);
+}
+
+/* BASE */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* NAVIGATION */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3rem;
+  background: rgba(12, 12, 14, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  letter-spacing: 0.1em;
+  color: var(--text);
+}
+
+.logo span {
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+}
+
+.nav-cta {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.65rem 1.6rem;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: var(--sans);
+  font-weight: 500;
+}
+
+.nav-cta:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+/* LAYOUT */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.page-wrapper {
+  padding-top: var(--nav-height);
+}
+
+/* TYPOGRAPHY */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.eyebrow-line {
+  width: 36px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.eyebrow span {
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* BUTTONS */
+.btn-primary {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  padding: 1rem 2.4rem;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background: var(--text);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: color 0.3s;
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+}
+
+.btn-ghost-line {
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s;
+}
+
+.btn-ghost:hover .btn-ghost-line {
+  width: 40px;
+}
+
+.btn-outline {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  border: 1px solid var(--border-2);
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: all 0.3s;
+  font-family: var(--sans);
+}
+
+.btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* CARDS */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  position: relative;
+}
+
+.card-gold-top::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 2.5rem;
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+}
+
+.card-gold-corner::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 36px;
+  height: 36px;
+  border-bottom: 1px solid var(--gold);
+  border-right: 1px solid var(--gold);
+}
+
+/* DIVIDERS */
+.divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* REVEAL ANIMATION */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav {
+    padding: 0 1.5rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+/* ================================
+   MOON GLOW EFFECTS
+   ================================ */
+
+/* Ambient moon glow na pozadí stránek */
+body::before {
+  content: '';
+  position: fixed;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(200, 216, 240, 0.07) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Karty – moon glow na hover */
+.card {
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+
+.card:hover {
+  border-color: rgba(200, 216, 240, 0.25) !important;
+  box-shadow:
+    0 0 40px rgba(200, 216, 240, 0.08),
+    0 0 100px rgba(200, 216, 240, 0.04),
+    inset 0 0 40px rgba(200, 216, 240, 0.02);
+}
+
+/* Tlačítko primary – moon shimmer na hover */
+.btn-primary {
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary:hover {
+  background: var(--text);
+  box-shadow: 0 0 30px rgba(200, 216, 240, 0.2), 0 0 60px rgba(200, 216, 240, 0.08);
+}
+
+/* Tlačítko outline – moon glow na hover */
+.btn-outline {
+  transition: all 0.3s;
+}
+
+.btn-outline:hover {
+  border-color: var(--moon);
+  color: var(--moon);
+  box-shadow: 0 0 20px rgba(200, 216, 240, 0.15);
+}
+
+/* Nav CTA – moon glow */
+.nav-cta {
+  transition: all 0.3s;
+}
+
+.nav-cta:hover {
+  background: var(--gold);
+  color: var(--bg);
+  box-shadow: 0 0 25px rgba(200, 216, 240, 0.15);
+}
+
+/* Section title em – jemný moon text-shadow */
+.section-title em {
+  text-shadow: 0 0 40px rgba(200, 216, 240, 0.2);
+}
+
+/* Eyebrow line – moon glow */
+.eyebrow-line {
+  box-shadow: 0 0 8px rgba(200, 216, 240, 0.3);
+}
+
+/* ================================
+   ANIMATIONS
+   ================================ */
+
+/* PAGE LOAD – stránka přijede shora */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-wrapper {
+  animation: pageEnter 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* NAV – logo a linky přijedou při loadu */
+@keyframes navEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+nav {
+  animation: navEnter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* NAV – aktivní odkaz s moon glow indikátorem */
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--moon);
+  box-shadow: 0 0 8px var(--moon-glow);
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-links a.active {
+  color: var(--text);
+}
+
+/* SCROLL REVEAL – vylepšený, tři varianty */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reveal zleva */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Reveal zprava */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+.cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: var(--moon);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 10px var(--moon-bright), 0 0 20px var(--moon-glow);
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(200, 216, 240, 0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition:
+    left 0.12s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.12s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.3s ease,
+    height 0.3s ease,
+    opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 9998;
+  box-shadow: 0 0 16px rgba(200, 216, 240, 0.1);
+}
+
+/* Cursor hover stav – zvětší se nad interaktivními prvky */
+body.cursor-hover .cursor-dot {
+  width: 10px;
+  height: 10px;
+  box-shadow: 0 0 20px var(--moon-bright), 0 0 40px var(--moon-glow);
+}
+
+body.cursor-hover .cursor-ring {
+  width: 56px;
+  height: 56px;
+  border-color: rgba(200, 216, 240, 0.6);
+  box-shadow: 0 0 24px rgba(200, 216, 240, 0.15);
+}
+
+/* Skrýt výchozí kurzor */
+html, body, a, button, input, select, textarea {
+  cursor: none !important;
+}
+
+@media (max-width: 900px) {
+  /* Na mobilu custom kurzor vypnout */
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+
+  html, body, a, button, input, select, textarea {
+    cursor: auto !important;
+  }
+}
+
+/* ================================
+   NAV – RÁMEČKY KOLEM ODKAZŮ
+   ================================ */
+
+.nav-links a {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid transparent;
+  transition: border-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.nav-links a:hover {
+  border-color: var(--border-2);
+  color: var(--text);
+}
+
+.nav-links a.active {
+  border-color: rgba(200, 216, 240, 0.25);
+  color: var(--text);
+  box-shadow: 0 0 12px rgba(200, 216, 240, 0.08);
+}
+
+.nav-links a::after {
+  display: none;
+}
+
+/* NAV – zlatý rámeček stálý, moon na hover */
+.nav-links a {
+  border-color: rgba(201, 169, 110, 0.3) !important;
+}
+
+.nav-links a:hover {
+  border-color: rgba(200, 216, 240, 0.35) !important;
+  box-shadow: 0 0 12px rgba(200, 216, 240, 0.1);
+}
+
+.nav-links a.active {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 12px rgba(201, 169, 110, 0.15);
+}
+
+/* ================================
+   LOGO – ANIMOVANÝ GRADIENT
+   ================================ */
+
+@keyframes logoShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.logo {
+  background: linear-gradient(
+    90deg,
+    var(--text) 0%,
+    var(--text) 30%,
+    var(--gold) 45%,
+    var(--moon) 50%,
+    var(--gold) 55%,
+    var(--text) 70%,
+    var(--text) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: logoShimmer 4s linear infinite;
+}
+
+.logo span {
+  -webkit-text-fill-color: transparent;
+}
+
+/* ================================
+   LOGO – ALMENDRA FONT
+   ================================ */
+
+.logo {
+  font-family: 'Almendra', serif !important;
+  font-size: 1.4rem !important;
+  font-style: italic;
+  letter-spacing: 0.05em !important;
+}
+
+/* ================================
+   FOOTER
+   ================================ */
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 3rem;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.footer-left {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+}
+
+.footer-logo {
+  font-size: 1.1rem !important;
+}
+
+.footer-tagline {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faint);
+  font-weight: 400;
+}
+
+.footer-copy {
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+@media (max-width: 900px) {
+  .site-footer {
+    padding: 2rem 1.5rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .footer-left {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+}

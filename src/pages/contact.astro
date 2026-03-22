@@ -1,0 +1,371 @@
+---
+// src/pages/contact.astro
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Contact" description="Start a project with Night Wolf. We respond within 24 hours.">
+  <style>
+    .contact-wrapper {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 5rem 3rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    /* LEFT */
+    .contact-left {}
+
+    .contact-left h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-left p {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.75;
+      max-width: 400px;
+      margin-bottom: 3rem;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .contact-detail {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-detail:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .detail-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--faint);
+      font-weight: 400;
+    }
+
+    .detail-value {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 300;
+      transition: color 0.3s;
+    }
+
+    .detail-value a {
+      color: var(--muted);
+      transition: color 0.3s;
+    }
+
+    .detail-value a:hover {
+      color: var(--gold);
+    }
+
+    .detail-value.available {
+      color: #4ade80;
+    }
+
+    /* RIGHT - FORM */
+    .contact-form-wrapper {
+      position: sticky;
+      top: calc(var(--nav-height) + 2rem);
+    }
+
+    .form-card {
+      padding: 2.5rem;
+    }
+
+    .form-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-field-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--faint);
+      display: block;
+      margin-bottom: 0.6rem;
+      font-weight: 400;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border-2);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      font-weight: 300;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+      appearance: none;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      border-color: var(--gold);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--faint);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-select {
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .form-select option {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 1rem;
+      background: var(--gold);
+      color: var(--bg);
+      border: none;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .form-submit:hover {
+      background: var(--text);
+    }
+
+    .form-note {
+      font-size: 0.65rem;
+      color: var(--faint);
+      text-align: center;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 3rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      color: var(--faint);
+    }
+
+    .footer-logo span {
+      color: var(--gold);
+      opacity: 0.6;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--faint);
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .footer-copy {
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    @media (max-width: 900px) {
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+        padding: 3rem 1.5rem 4rem;
+        gap: 3rem;
+      }
+
+      .contact-form-wrapper {
+        position: static;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .site-footer {
+        padding: 2rem 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+    }
+  </style>
+
+  <div class="contact-wrapper">
+
+    <!-- LEFT -->
+    <div class="contact-left reveal">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>Get in Touch</span>
+      </div>
+      <h1 class="section-title">
+        Let's build<br>
+        something <em>great.</em>
+      </h1>
+      <p class="section-subtitle">
+        Tell us about your project and we will get back to you within 24 hours. No pressure, no commitment — just an honest conversation.
+      </p>
+
+      <div class="contact-details">
+        <div class="contact-detail">
+          <span class="detail-label">Email</span>
+          <span class="detail-value">
+            <a href="mailto:nightwolf.webstudio@gmail.com">nightwolf.webstudio@gmail.com</a>
+          </span>
+        </div>
+        <div class="contact-detail">
+          <span class="detail-label">Location</span>
+          <span class="detail-value">Europe · Remote · Global</span>
+        </div>
+        <div class="contact-detail">
+          <span class="detail-label">Response time</span>
+          <span class="detail-value">Within 24 hours</span>
+        </div>
+        <div class="contact-detail">
+          <span class="detail-label">Availability</span>
+          <span class="detail-value available">Open for projects ✓</span>
+        </div>
+        <div class="contact-detail">
+          <span class="detail-label">Instagram</span>
+          <span class="detail-value">
+            <a href="https://www.instagram.com/nightwolf.webstudio/" target="_blank" rel="noopener">@nightwolf.webstudio</a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT - FORM -->
+    <div class="contact-form-wrapper reveal" style="transition-delay: 0.2s;">
+      <div class="form-card card card-gold-top">
+        <div class="form-label">New Project Inquiry</div>
+
+        <form
+          action="https://formspree.io/f/xlgwzdrj"
+          method="POST"
+        >
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-field-label" for="name">Name</label>
+              <input class="form-input" type="text" id="name" name="name" placeholder="John Smith" required />
+            </div>
+            <div class="form-group">
+              <label class="form-field-label" for="email">Email</label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="john@company.com" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-field-label" for="plan">Budget Range</label>
+            <select class="form-select" id="plan" name="plan">
+              <option value="" disabled selected>Select a plan</option>
+              <option value="essential">Essential — $1,950</option>
+              <option value="business">Business — $3,800</option>
+              <option value="signature">Signature — $7,500</option>
+              <option value="custom">Custom — Let's talk</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-field-label" for="website">Current Website (optional)</label>
+            <input class="form-input" type="url" id="website" name="website" placeholder="https://yoursite.com" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-field-label" for="message">Tell us about your project</label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="What do you need, what's your timeline, any specific goals..." required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Send Inquiry →</button>
+          <p class="form-note">We respond within 24 hours. Your information is never shared.</p>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-logo">Night<span>Wolf</span></div>
+    <ul class="footer-links">
+      <li><a href="/work">Work</a></li>
+      <li><a href="/services">Services</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Night Wolf Studio</div>
+  </footer>
+
+</Layout>

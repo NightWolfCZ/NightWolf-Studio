@@ -1,0 +1,283 @@
+---
+// src/pages/work.astro
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+  {
+    id: 'apex-detail',
+    title: 'Apex Detail',
+    category: 'Car Detailing Studio',
+    description: 'A high-energy dark-mode website for a premium car detailing business. Built to convert visitors into bookings.',
+    tags: ['Web Design', 'Astro', 'Tailwind'],
+    year: '2026',
+  },
+  {
+    id: 'azure-estates',
+    title: 'Azure Estates',
+    category: 'Luxury Real Estate',
+    description: 'An editorial, scroll-driven experience for a Mediterranean luxury property portfolio. Designed to evoke exclusivity.',
+    tags: ['Web Design', 'React', 'Snap Scroll'],
+    year: '2026',
+  },
+  {
+    id: 'elen-digital',
+    title: 'Elen Digital',
+    category: 'AI Brand Identity',
+    description: 'A fully engineered digital identity — from concept to deployment. Elen is a case study in AI-assisted brand creation.',
+    tags: ['Branding', 'AI', 'Identity'],
+    year: '2026',
+  },
+];
+---
+<Layout title="Work" description="Selected projects by Night Wolf Digital Studio.">
+  <style>
+    .work-hero {
+      padding: 5rem 3rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .work-hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 6vw, 6rem);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .work-hero p {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      font-weight: 300;
+    }
+
+    .projects {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .project-item {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      padding: 3.5rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.4s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .project-item::before {
+      content: '';
+      position: absolute;
+      left: -3rem;
+      right: -3rem;
+      top: 0;
+      bottom: 0;
+      background: var(--surface);
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: -1;
+    }
+
+    .project-item:hover::before {
+      opacity: 1;
+    }
+
+    .project-item:hover .project-number {
+      color: var(--gold);
+    }
+
+    .project-item:hover .project-arrow {
+      transform: translateX(8px);
+      color: var(--gold);
+    }
+
+    .project-meta {
+      padding-top: 0.5rem;
+    }
+
+    .project-number {
+      font-family: var(--serif);
+      font-size: 0.75rem;
+      color: var(--faint);
+      letter-spacing: 0.2em;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s;
+    }
+
+    .project-year {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .project-main {}
+
+    .project-category {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .project-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .project-description {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 480px;
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.8rem;
+      border: 1px solid var(--border-2);
+      color: var(--faint);
+      font-weight: 400;
+    }
+
+    .project-action {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 1rem;
+      padding-top: 0.5rem;
+    }
+
+    .project-arrow {
+      font-size: 1.5rem;
+      color: var(--faint);
+      transition: all 0.3s;
+      line-height: 1;
+    }
+
+    .project-view {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--faint);
+      font-weight: 400;
+    }
+
+    .work-cta {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 2rem;
+    }
+
+    .work-cta h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .work-cta p {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 400px;
+      font-weight: 300;
+    }
+
+    @media (max-width: 900px) {
+      .work-hero { padding: 3rem 1.5rem 2.5rem; }
+      .projects { padding: 0 1.5rem; }
+
+      .project-item {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 2.5rem 0;
+      }
+
+      .project-item::before {
+        left: -1.5rem;
+        right: -1.5rem;
+      }
+
+      .project-action {
+        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .work-cta { padding: 4rem 1.5rem; }
+    }
+  </style>
+
+  <div class="work-hero reveal">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span>Selected Work</span>
+    </div>
+    <h1 class="section-title">Our <em>Projects</em></h1>
+    <p class="section-subtitle">
+      Each project is built from scratch — no themes, no page builders. Just clean code and deliberate design.
+    </p>
+  </div>
+
+  <div class="projects">
+    {projects.map((project, index) => (
+      <div class="project-item reveal" style={`transition-delay: ${index * 0.1}s`}>
+        <div class="project-meta">
+          <div class="project-number">0{index + 1}</div>
+          <div class="project-year">{project.year}</div>
+        </div>
+
+        <div class="project-main">
+          <div class="project-category">{project.category}</div>
+          <h2 class="project-title">{project.title}</h2>
+          <p class="project-description">{project.description}</p>
+          <div class="project-tags">
+            {project.tags.map(tag => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        </div>
+
+        <div class="project-action">
+          <span class="project-arrow">→</span>
+          <span class="project-view">View Project</span>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="work-cta reveal">
+    <h2 class="section-title">Your project <em>could be next.</em></h2>
+    <p class="section-subtitle">We take on a limited number of projects each month to ensure quality.</p>
+    <a href="/contact" class="btn-primary">Start a Conversation</a>
+  </div>
+
+</Layout>

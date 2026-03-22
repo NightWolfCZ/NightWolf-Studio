@@ -1,0 +1,395 @@
+---
+// src/pages/about.astro
+import Layout from '../layouts/Layout.astro';
+
+const skills = [
+  { category: 'Design', items: ['UI / UX Design', 'Brand Identity', 'Typography', 'Motion & Animation'] },
+  { category: 'Development', items: ['Astro', 'React', 'Next.js', 'Tailwind CSS'] },
+  { category: 'Strategy', items: ['SEO Optimization', 'Performance Audits', 'Copywriting', 'AI Branding'] },
+];
+
+const values = [
+  {
+    number: '01',
+    title: 'Craft over quantity',
+    text: 'We take on a limited number of projects so every client gets our full attention. No assembly line, no templates.',
+  },
+  {
+    number: '02',
+    title: 'Honest communication',
+    text: 'You will always know where your project stands. No radio silence, no vague updates — just clear, direct communication.',
+  },
+  {
+    number: '03',
+    title: 'Results that matter',
+    text: 'A beautiful website is worthless if it does not perform. Every decision we make is driven by your business goals.',
+  },
+];
+---
+<Layout title="About" description="Night Wolf is a one-person digital studio building high-performance websites for ambitious businesses worldwide.">
+  <style>
+    .about-hero {
+      padding: 5rem 3rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 6vw, 6rem);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-hero p {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      font-weight: 300;
+    }
+
+    /* INTRO */
+    .intro {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .intro-left {}
+
+    .intro-text {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+
+    .intro-text em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .intro-body {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    .intro-right {
+      padding-top: 1rem;
+    }
+
+    .stat-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .stat-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat-line:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .stat-line-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--faint);
+      font-weight: 400;
+    }
+
+    .stat-line-value {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .stat-line-value span {
+      color: var(--gold);
+    }
+
+    /* VALUES */
+    .values {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 3rem 5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .values-header {
+      padding: 4rem 0 3rem;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .value-item {
+      padding: 2.5rem;
+    }
+
+    .value-number {
+      font-family: var(--serif);
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .value-title {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .value-text {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* SKILLS */
+    .skills {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 3rem 5rem;
+    }
+
+    .skills-header {
+      margin-bottom: 3rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .skill-group-title {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .skill-list li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .skill-list li::before {
+      content: '';
+      width: 4px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    /* CTA */
+    .about-cta {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 3rem 6rem;
+    }
+
+    .about-cta-inner {
+      padding: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .about-cta h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .about-cta-actions {
+      display: flex;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 900px) {
+      .about-hero { padding: 3rem 1.5rem 2.5rem; }
+
+      .intro {
+        grid-template-columns: 1fr;
+        padding: 3rem 1.5rem;
+        gap: 3rem;
+      }
+
+      .values {
+        padding: 0 1.5rem 4rem;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skills {
+        padding: 0 1.5rem 4rem;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .about-cta { padding: 0 1.5rem 4rem; }
+
+      .about-cta-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2.5rem;
+      }
+    }
+  </style>
+
+  <div class="about-hero reveal">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span>About the Studio</span>
+    </div>
+    <h1 class="section-title">Built on <em>craft.</em></h1>
+    <p class="section-subtitle">
+      One person. Full focus. No compromises.
+    </p>
+  </div>
+
+  <div class="intro">
+    <div class="intro-left reveal">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>The Story</span>
+      </div>
+      <p class="intro-text">
+        Night Wolf is a <em>solo digital studio</em> — built for clients who want real craftsmanship, not agency overhead.
+      </p>
+      <p class="intro-body">
+        I started Night Wolf with a simple belief: most businesses deserve better websites than they have. Not just prettier ones — faster, smarter, more intentional websites that actually help them grow.
+      </p>
+      <p class="intro-body">
+        Based in Central Europe, working globally. Every project is handled personally — from the first conversation to the final deployment. You are never handed off to a junior or lost in a ticket queue.
+      </p>
+      <a href="/contact" class="btn-primary" style="margin-top: 1rem;">Work With Me</a>
+    </div>
+
+    <div class="intro-right reveal" style="transition-delay: 0.2s;">
+      <div class="stat-row">
+        <div class="stat-line">
+          <span class="stat-line-label">Location</span>
+          <span class="stat-line-value">Europe <span>/</span> Remote</span>
+        </div>
+        <div class="stat-line">
+          <span class="stat-line-label">Founded</span>
+          <span class="stat-line-value">2026</span>
+        </div>
+        <div class="stat-line">
+          <span class="stat-line-label">Availability</span>
+          <span class="stat-line-value">Open <span>✓</span></span>
+        </div>
+        <div class="stat-line">
+          <span class="stat-line-label">Languages</span>
+          <span class="stat-line-value">EN <span>/</span> CS</span>
+        </div>
+        <div class="stat-line">
+          <span class="stat-line-label">Response time</span>
+          <span class="stat-line-value">24<span>h</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="values">
+    <div class="values-header reveal">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>How We Work</span>
+      </div>
+      <h2 class="section-title">The principles <em>behind the work.</em></h2>
+    </div>
+    <div class="values-grid">
+      {values.map((v, i) => (
+        <div class="value-item card reveal" style={`transition-delay: ${i * 0.1}s`}>
+          <div class="value-number">{v.number}</div>
+          <h3 class="value-title">{v.title}</h3>
+          <p class="value-text">{v.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="skills">
+    <div class="skills-header reveal">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>Capabilities</span>
+      </div>
+      <h2 class="section-title">What we <em>bring to the table.</em></h2>
+    </div>
+    <div class="skills-grid">
+      {skills.map((group, i) => (
+        <div class="reveal" style={`transition-delay: ${i * 0.1}s`}>
+          <div class="skill-group-title">{group.category}</div>
+          <ul class="skill-list">
+            {group.items.map(item => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="about-cta reveal">
+    <div class="about-cta-inner card card-gold-top">
+      <h2 class="section-title">Ready to build something <em>great?</em></h2>
+      <div class="about-cta-actions">
+        <a href="/contact" class="btn-primary">Start a Project</a>
+        <a href="/work" class="btn-outline">See Our Work</a>
+      </div>
+    </div>
+  </div>
+
+</Layout>

@@ -1,0 +1,355 @@
+---
+// src/pages/services.astro
+import Layout from '../layouts/Layout.astro';
+
+const services = [
+  {
+    number: '01',
+    title: 'Web Design & Development',
+    description: 'From concept to deployment. We design and build fast, modern websites that look great and perform even better. Every line of code is written by hand — no page builders, no bloat.',
+    includes: [
+      'Custom UI/UX design',
+      'Responsive across all devices',
+      'Performance optimized',
+      'Accessibility compliant',
+      'Vercel / Netlify deployment',
+    ],
+  },
+  {
+    number: '02',
+    title: 'Brand Identity',
+    description: 'Your website is only as strong as the brand behind it. We help businesses define their visual identity — logo, typography, colour palette, and tone of voice — so everything feels intentional.',
+    includes: [
+      'Logo design',
+      'Colour system',
+      'Typography selection',
+      'Brand guidelines document',
+      'Social media kit',
+    ],
+  },
+  {
+    number: '03',
+    title: 'AI-Powered Branding',
+    description: 'We use cutting-edge AI tools to create bespoke digital personas, imagery, and brand assets that would take a traditional agency weeks to produce. Faster, unique, and entirely yours.',
+    includes: [
+      'AI brand model creation',
+      'Custom visual assets',
+      'Digital persona development',
+      'Content generation system',
+      'Full ownership of all assets',
+    ],
+  },
+  {
+    number: '04',
+    title: 'SEO & Performance',
+    description: 'A beautiful website that no one can find is a wasted investment. We optimise your site for search engines and real-world performance — faster load times, better rankings, more traffic.',
+    includes: [
+      'Technical SEO audit',
+      'On-page optimisation',
+      'Core Web Vitals improvement',
+      'Structured data markup',
+      'Monthly reporting',
+    ],
+  },
+  {
+    number: '05',
+    title: 'Website Maintenance',
+    description: 'Keep your site fast, secure, and up to date without lifting a finger. We handle updates, backups, performance monitoring, and any changes you need on an ongoing basis.',
+    includes: [
+      'Regular updates & backups',
+      'Security monitoring',
+      'Content updates',
+      'Performance checks',
+      'Priority support',
+    ],
+  },
+];
+
+const process = [
+  { step: '01', title: 'Discovery', text: 'We start with a conversation. Tell us about your business, your goals, and what you need. No forms, no templates — just a real discussion.' },
+  { step: '02', title: 'Proposal', text: 'Within 48 hours we send a clear proposal — scope, timeline, and price. No surprises, no hidden costs.' },
+  { step: '03', title: 'Design', text: 'We design your website and share progress at every stage. You review, give feedback, and we refine until it is right.' },
+  { step: '04', title: 'Build', text: 'Once design is approved, we build. Clean code, fast performance, tested across all major browsers and devices.' },
+  { step: '05', title: 'Launch', text: 'We handle deployment and make sure everything is live and running perfectly. Then we hand over full ownership.' },
+];
+---
+<Layout title="Services" description="Web design, development, branding, and SEO for ambitious businesses. Built from scratch, delivered with care.">
+  <style>
+    .services-hero {
+      padding: 5rem 3rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* SERVICES LIST */
+    .services-list {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .service-item {
+      display: grid;
+      grid-template-columns: 200px 1fr 1fr;
+      gap: 4rem;
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .service-item::before {
+      content: '';
+      position: absolute;
+      left: -3rem;
+      right: -3rem;
+      top: 0;
+      bottom: 0;
+      background: var(--surface);
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: -1;
+    }
+
+    .service-item:hover::before {
+      opacity: 1;
+    }
+
+    .service-meta {
+      padding-top: 0.4rem;
+    }
+
+    .service-number {
+      font-family: var(--serif);
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-title {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 2vw, 1.8rem);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .service-description {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .service-includes {
+      padding-top: 0.4rem;
+    }
+
+    .includes-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 1.25rem;
+      font-weight: 400;
+    }
+
+    .includes-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .includes-list li {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .includes-list li::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    /* PROCESS */
+    .process {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 5rem 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .process-header {
+      margin-bottom: 4rem;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .process-step {
+      background: var(--bg);
+      padding: 2.5rem 2rem;
+      transition: background 0.3s;
+    }
+
+    .process-step:hover {
+      background: var(--surface);
+    }
+
+    .process-step-number {
+      font-family: var(--serif);
+      font-size: 0.7rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      margin-bottom: 1.25rem;
+    }
+
+    .process-step-title {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .process-step-text {
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* CTA */
+    .services-cta {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 3rem 6rem;
+    }
+
+    .services-cta-inner {
+      padding: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .services-cta h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 900px) {
+      .services-hero { padding: 3rem 1.5rem 2.5rem; }
+
+      .services-list { padding: 0 1.5rem; }
+
+      .service-item {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 3rem 0;
+      }
+
+      .service-item::before {
+        left: -1.5rem;
+        right: -1.5rem;
+      }
+
+      .process { padding: 4rem 1.5rem; }
+
+      .process-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .services-cta { padding: 0 1.5rem 4rem; }
+
+      .services-cta-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2.5rem;
+      }
+    }
+  </style>
+
+  <div class="services-hero reveal">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span>What We Do</span>
+    </div>
+    <h1 class="section-title">Services built for <em>results.</em></h1>
+    <p class="section-subtitle">
+      Every service we offer is focused on one thing — helping your business grow online.
+    </p>
+  </div>
+
+  <div class="services-list">
+    {services.map((service, i) => (
+      <div class="service-item reveal" style={`transition-delay: ${i * 0.05}s`}>
+        <div class="service-meta">
+          <div class="service-number">{service.number}</div>
+          <h2 class="service-title">{service.title}</h2>
+        </div>
+        <p class="service-description">{service.description}</p>
+        <div class="service-includes">
+          <div class="includes-label">What's included</div>
+          <ul class="includes-list">
+            {service.includes.map(item => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="process">
+    <div class="process-header reveal">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>How It Works</span>
+      </div>
+      <h2 class="section-title">From first contact <em>to launch.</em></h2>
+    </div>
+    <div class="process-steps">
+      {process.map((step, i) => (
+        <div class="process-step reveal" style={`transition-delay: ${i * 0.08}s`}>
+          <div class="process-step-number">{step.step}</div>
+          <div class="process-step-title">{step.title}</div>
+          <p class="process-step-text">{step.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="services-cta reveal">
+    <div class="services-cta-inner card card-gold-top">
+      <h2 class="section-title">Not sure which service <em>you need?</em></h2>
+      <div class="cta-actions">
+        <a href="/contact" class="btn-primary">Let's Talk</a>
+        <a href="/pricing" class="btn-outline">View Pricing</a>
+      </div>
+    </div>
+  </div>
+
+</Layout>
